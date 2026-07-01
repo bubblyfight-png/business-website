@@ -1,0 +1,213 @@
+@import url('fonts.css');
+
+:root {
+  --ink: #05060a;
+  --navy: #0b111c;
+  --navy-2: #0d1420;
+  --gold: #cda868;
+  --gold-light: #f1dfae;
+  --gold-deep: #9c7c3d;
+  --white: #f4efe2;
+  --muted: #a89a80;
+  --hair: rgba(205, 168, 104, 0.35);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+  background: #1c1c1c;
+}
+
+.bg {
+  background:
+    radial-gradient(120% 160% at 82% -20%, rgba(205,168,104,0.10) 0%, rgba(205,168,104,0) 45%),
+    radial-gradient(140% 160% at 12% 118%, rgba(205,168,104,0.07) 0%, rgba(205,168,104,0) 40%),
+    linear-gradient(155deg, #0a0d13 0%, #0c121c 45%, #090c11 100%);
+}
+
+.content {
+  position: relative;
+  width: 1050px;
+  height: 600px;
+  padding: 46px 52px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-family: 'Inter', sans-serif;
+  color: var(--white);
+}
+
+/* faint corner frame accent */
+.content::before {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border: 1px solid rgba(205,168,104,0.18);
+  pointer-events: none;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.mark {
+  flex: none;
+  width: 56px;
+  height: 56px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mark svg { width: 100%; height: 100%; }
+
+.wordmark {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.wordmark .awwal {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 33px;
+  letter-spacing: 0.06em;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.wordmark .digital {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 12.5px;
+  letter-spacing: 0.42em;
+  color: var(--muted);
+  line-height: 1;
+  margin-left: 2px;
+}
+
+.tagline {
+  margin-top: 16px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, var(--hair) 0%, rgba(205,168,104,0.08) 100%);
+}
+
+.person {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.person .id .name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  font-size: 21px;
+  color: var(--white);
+  letter-spacing: 0.01em;
+}
+.person .id .title {
+  margin-top: 5px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  text-align: right;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 12.5px;
+  color: #d8d0c0;
+  letter-spacing: 0.02em;
+}
+.contact .row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+}
+.contact .row .icon {
+  color: var(--gold);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  width: 14px;
+  text-align: center;
+}
+
+/* ---------- BACK (centered lockup) ---------- */
+.back-content {
+  position: relative;
+  width: 1050px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  font-family: 'Inter', sans-serif;
+}
+.back-content::before {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border: 1px solid rgba(205,168,104,0.18);
+  pointer-events: none;
+}
+.back-mark {
+  width: 74px;
+  height: 74px;
+}
+.back-mark svg { width: 100%; height: 100%; }
+
+.back-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.back-wordmark .awwal {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  font-size: 46px;
+  letter-spacing: 0.10em;
+  color: var(--gold-light);
+}
+.back-wordmark .digital {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.55em;
+  margin-left: 8px;
+  color: var(--muted);
+}
+.back-rule {
+  width: 130px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.back-tagline {
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+}

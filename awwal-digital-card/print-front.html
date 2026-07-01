@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="assets/card.css">
+<style>
+  html,body{width:1275px;height:825px;background:#ffffff;}
+  .crop-canvas{position:relative;width:1275px;height:825px;}
+  .bleed-wrap{position:absolute;left:75px;top:75px;width:1125px;height:675px;overflow:hidden;}
+  .content{position:absolute;left:37.5px;top:37.5px;}
+  svg.marks{position:absolute;left:0;top:0;width:1275px;height:825px;}
+  svg.marks line{stroke:#000;stroke-width:1.25;}
+</style>
+</head>
+<body>
+  <div class="crop-canvas">
+    <div class="bleed-wrap bg">
+      <div class="content">
+        <div class="brand-row">
+          <div class="mark">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <polygon points="50,8 92,50 50,92 8,50" stroke="#cda868" stroke-width="2.5"/>
+              <path d="M50 30 L64 70 M50 30 L36 70 M41.5 57 H58.5" stroke="#f1dfae" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="wordmark">
+            <div class="awwal">AWWAL</div>
+            <div class="digital">DIGITAL</div>
+          </div>
+        </div>
+        <div class="tagline">Premium Web &amp; Software Solutions</div>
+
+        <div class="rule"></div>
+
+        <div class="person">
+          <div class="id">
+            <div class="name">YOUR NAME</div>
+            <div class="title">Founder &amp; CEO</div>
+          </div>
+          <div class="contact">
+            <div class="row"><span class="icon">P</span><span>+1 (000) 000-0000</span></div>
+            <div class="row"><span class="icon">E</span><span>hello@awwaldigital.com</span></div>
+            <div class="row"><span class="icon">W</span><span>awwaldigital.com</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <svg class="marks">
+      <!-- top-left -->
+      <line x1="38" y1="112.5" x2="63" y2="112.5"/>
+      <line x1="112.5" y1="38" x2="112.5" y2="63"/>
+      <!-- top-right -->
+      <line x1="1212" y1="112.5" x2="1237" y2="112.5"/>
+      <line x1="1162.5" y1="38" x2="1162.5" y2="63"/>
+      <!-- bottom-left -->
+      <line x1="38" y1="712.5" x2="63" y2="712.5"/>
+      <line x1="112.5" y1="762" x2="112.5" y2="787"/>
+      <!-- bottom-right -->
+      <line x1="1212" y1="712.5" x2="1237" y2="712.5"/>
+      <line x1="1162.5" y1="762" x2="1162.5" y2="787"/>
+    </svg>
+  </div>
+</body>
+</html>

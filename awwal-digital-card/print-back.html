@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" href="assets/card.css">
+<style>
+  html,body{width:1275px;height:825px;background:#ffffff;}
+  .crop-canvas{position:relative;width:1275px;height:825px;}
+  .bleed-wrap{position:absolute;left:75px;top:75px;width:1125px;height:675px;overflow:hidden;}
+  .back-content{position:absolute;left:37.5px;top:37.5px;}
+  svg.marks{position:absolute;left:0;top:0;width:1275px;height:825px;}
+  svg.marks line{stroke:#000;stroke-width:1.25;}
+</style>
+</head>
+<body>
+  <div class="crop-canvas">
+    <div class="bleed-wrap bg">
+      <div class="back-content">
+        <div class="back-mark">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="50,6 94,50 50,94 6,50" stroke="#cda868" stroke-width="2"/>
+            <path d="M50 26 L66 74 M50 26 L34 74 M40 58 H60" stroke="#f1dfae" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="back-wordmark">
+          <div class="awwal">AWWAL DIGITAL</div>
+        </div>
+        <div class="back-rule"></div>
+        <div class="back-tagline">Premium Web &amp; Software Solutions</div>
+      </div>
+    </div>
+
+    <svg class="marks">
+      <line x1="38" y1="112.5" x2="63" y2="112.5"/>
+      <line x1="112.5" y1="38" x2="112.5" y2="63"/>
+      <line x1="1212" y1="112.5" x2="1237" y2="112.5"/>
+      <line x1="1162.5" y1="38" x2="1162.5" y2="63"/>
+      <line x1="38" y1="712.5" x2="63" y2="712.5"/>
+      <line x1="112.5" y1="762" x2="112.5" y2="787"/>
+      <line x1="1212" y1="712.5" x2="1237" y2="712.5"/>
+      <line x1="1162.5" y1="762" x2="1162.5" y2="787"/>
+    </svg>
+  </div>
+</body>
+</html>
