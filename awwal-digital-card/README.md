@@ -4,14 +4,12 @@ Dark, premium business card design: deep navy-black background, gold/white
 typography, minimal diamond "A" monogram. Built as HTML/CSS so it's easy to
 tweak, then rendered to high-res image/PDF files with Playwright.
 
-## Files to edit
+## Current details
 
-All real content is placeholder text — swap it before sending anything out:
-
-- `YOUR NAME` / `Founder & CEO`
-- `+1 (000) 000-0000`
-- `hello@awwaldigital.com`
-- `awwaldigital.com`
+- Zain Khatri — Founder & CEO
+- +260 970 282 929
+- awwaldigital.zm@gmail.com
+- No website listed
 
 Edit the text directly in:
 
