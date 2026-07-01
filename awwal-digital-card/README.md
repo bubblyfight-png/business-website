@@ -1,8 +1,9 @@
 # Awwal Digital — Business Card
 
-Dark, premium business card design: deep navy-black background, gold/white
-typography, minimal diamond "A" monogram. Built as HTML/CSS so it's easy to
-tweak, then rendered to high-res image/PDF files with Playwright.
+Dark, premium business card design matching the Awwal Digital logo: deep
+navy-black background, gold/white typography, bold "AD" monogram with a
+`</>` code accent. Built as HTML/CSS so it's easy to tweak, then rendered to
+high-res image/PDF files with Playwright.
 
 ## Current details
 
