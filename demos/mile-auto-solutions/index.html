@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mile Auto Solutions · Demo</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<style>html,body{margin:0;background:#fff}</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+(function () {
+"use strict";
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const K = n => "K " + Math.round(Number(n) || 0).toLocaleString();
+const wa = (num, text) => num ? `https://wa.me/${num}?text=${encodeURIComponent(text)}` : null;
+const where = a => { a = a || "Lusaka"; return /\b(road|rd|street|st|avenue|ave|drive|dr)\b/i.test(a) ? "on " + a : "in " + a; };
+const KINDS = {
+  Clinic: { headline: b => `${b}: book your visit in seconds.`, services: ["Check-ups and consultations", "Book an appointment on WhatsApp", "Friendly, professional care"],
+    kpis: [["Appointments today", "18"], ["Patients this month", "264"], ["No-shows avoided", "11"], ["Unpaid invoices", "K 6,800"]],
+    feats: [["Appointments and reminders", "Patients book online and get a WhatsApp reminder, so fewer no-shows."], ["Patient records", "History, treatments and payments per patient, in one place."], ["Reports on your phone", "Daily bookings and income wherever you are."]] },
+  Restaurant: { headline: b => `${b}: see the menu, order on WhatsApp.`, services: ["Full menu with prices", "Order ahead on WhatsApp", "Dine in or take away"],
+    kpis: [["Orders today", "73"], ["Sales today", "K 9,840"], ["Best seller", "Chicken & chips"], ["Items running low", "4"]],
+    feats: [["Digital menu", "Photos, prices and specials customers can browse on their phone."], ["Orders and sales", "Every order recorded, with daily totals and best sellers."], ["Stock alerts", "Know before you run out of your top ingredients."]] },
+  Hospitality: { headline: b => `${b}: check rooms and book direct.`, services: ["Comfortable rooms", "Book direct on WhatsApp", "Events and conferences"],
+    kpis: [["Rooms booked tonight", "12 / 16"], ["Revenue this month", "K 142,000"], ["Check-ins today", "5"], ["Deposits held", "K 9,500"]],
+    feats: [["Room calendar", "See which rooms are free on which night, no double bookings."], ["Direct bookings", "Guests book with you, not through expensive booking sites."], ["Guest records", "Stays, payments and preferences for every guest."]] },
+};
+const stars = r => r ? "★".repeat(Math.round(r)) + "☆".repeat(5 - Math.round(r)) : "";
+
+const CARS = [
+  { make: "Toyota", model: "Hilux D/Cab 2.8 GD-6", year: 2019, km: 86000, price: 485000, type: "Pickup", fuel: "Diesel", status: "Available", hue: 18 },
+  { make: "Toyota", model: "Fortuner 2.8", year: 2018, km: 92000, price: 520000, type: "SUV", fuel: "Diesel", status: "Available", hue: 200 },
+  { make: "Mazda", model: "CX-5 2.0", year: 2017, km: 71000, price: 265000, type: "SUV", fuel: "Petrol", status: "Reserved", hue: 350 },
+  { make: "Honda", model: "Fit Hybrid", year: 2016, km: 64000, price: 118000, type: "Hatch", fuel: "Hybrid", status: "Available", hue: 140 },
+  { make: "Mercedes-Benz", model: "C200", year: 2016, km: 78000, price: 310000, type: "Sedan", fuel: "Petrol", status: "Available", hue: 230 },
+  { make: "Nissan", model: "X-Trail 2.0", year: 2015, km: 103000, price: 175000, type: "SUV", fuel: "Petrol", status: "Sold", hue: 40 },
+];
+const FLEET = [
+  { name: "Toyota Corolla", cls: "Economy", rate: 850, seats: 5, status: "Available", hue: 210 },
+  { name: "Toyota Fortuner 4x4", cls: "SUV", rate: 1900, seats: 7, status: "On hire", hue: 25 },
+  { name: "Toyota Hilux 4x4 + rooftop tent", cls: "Safari", rate: 2400, seats: 5, status: "Available", hue: 95 },
+  { name: "Toyota Hiace", cls: "Van", rate: 1600, seats: 14, status: "Service due", hue: 300 },
+];
+
+function carArt(hue, label) {
+  return `<svg viewBox="0 0 320 180" role="img" aria-label="${esc(label)}"><defs><linearGradient id="g${hue}" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="hsl(${hue} 45% 88%)"/><stop offset="1" stop-color="hsl(${hue} 40% 74%)"/></linearGradient></defs>
+  <rect width="320" height="180" fill="url(#g${hue})"/><rect y="138" width="320" height="42" fill="hsl(${hue} 20% 60% / .35)"/>
+  <path d="M52 124 L70 92 Q78 80 96 78 L196 76 Q214 76 228 88 L256 108 Q276 110 282 124 L282 132 L52 132 Z" fill="hsl(${hue} 35% 32%)"/>
+  <path d="M100 86 L190 84 Q204 84 214 94 L226 106 L90 108 Z" fill="hsl(${hue} 40% 86% / .9)"/>
+  <circle cx="100" cy="134" r="17" fill="#1b1d1f"/><circle cx="100" cy="134" r="7" fill="#9aa0a6"/>
+  <circle cx="236" cy="134" r="17" fill="#1b1d1f"/><circle cx="236" cy="134" r="7" fill="#9aa0a6"/></svg>`;
+}
+
+const CSS = `
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Inter:wght@400;500;600&display=swap');
+.d { --ink:#101418; --ink2:#4b5563; --mut:#8a94a3; --bg:#f6f7f9; --card:#fff; --line:#e5e8ec; --acc:#0f5bd8; --acc2:#e8f0ff; --warm:#f5a524; --good:#12834a; --bad:#c0392b;
+  font: 15px/1.5 Inter, system-ui, sans-serif; color: var(--ink); background: var(--bg); min-height: 100vh; }
+.d * { box-sizing: border-box; }
+.d .bar { background: #0b1220; color: #fff; font-size: 13px; padding: 9px 16px; text-align: center; }
+.d .bar b { color: var(--warm); }
+.d header { background: var(--card); border-bottom: 1px solid var(--line); padding: 14px 16px; display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 5; }
+.d .logo { width: 36px; height: 36px; border-radius: 10px; background: var(--acc); color: #fff; display: grid; place-items: center; font: 800 16px Sora, sans-serif; flex: none; }
+.d header .nm { font: 700 16px Sora, sans-serif; line-height: 1.2; }
+.d header .sub { font-size: 12.5px; color: var(--mut); }
+.d header a.cta { margin-left: auto; }
+.d .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
+.d .hero { padding: 34px 0 22px; }
+.d .hero h1 { font: 800 clamp(28px, 6vw, 44px)/1.08 Sora, sans-serif; margin: 0 0 10px; letter-spacing: -.02em; text-wrap: balance; }
+.d .hero p { color: var(--ink2); max-width: 60ch; margin: 0 0 16px; }
+.d .rating { color: var(--warm); letter-spacing: 2px; font-size: 15px; }
+.d .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 10px; font: 600 14.5px Inter, sans-serif; text-decoration: none; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+.d .btn.pri { background: #1faa59; border-color: #1faa59; color: #fff; }
+.d .btn.acc { background: var(--acc); border-color: var(--acc); color: #fff; }
+.d .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0 16px; }
+.d .chip { border: 1px solid var(--line); background: var(--card); padding: 7px 13px; border-radius: 20px; font: 600 13px Inter, sans-serif; cursor: pointer; color: var(--ink2); }
+.d .chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+.d .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+.d .car { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
+.d .car svg { width: 100%; height: auto; display: block; }
+.d .car .b { padding: 12px 14px 14px; display: grid; gap: 6px; }
+.d .car .t { font: 700 15.5px Sora, sans-serif; }
+.d .car .m { color: var(--mut); font-size: 13px; }
+.d .car .p { font: 800 19px Sora, sans-serif; font-variant-numeric: tabular-nums; }
+.d .tag { display: inline-block; font: 700 11.5px Inter, sans-serif; padding: 3px 8px; border-radius: 20px; }
+.d .tag.Available { background: #e3f6ec; color: var(--good); }
+.d .tag.Reserved { background: #fff2dc; color: #9a6200; }
+.d .tag.Sold, .d .tag.Service { background: #fde8e6; color: var(--bad); }
+.d .tag.On { background: var(--acc2); color: var(--acc); }
+.d h2 { font: 800 24px/1.15 Sora, sans-serif; margin: 34px 0 6px; letter-spacing: -.01em; }
+.d .lead { color: var(--ink2); margin: 0 0 16px; }
+.d .admin { background: #0b1220; color: #e7ecf3; border-radius: 18px; padding: 18px; margin: 12px 0 10px; }
+.d .admin .k { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
+.d .admin .kk { background: #141d2f; border-radius: 12px; padding: 12px; }
+.d .admin .kk .v { font: 800 22px Sora, sans-serif; font-variant-numeric: tabular-nums; }
+.d .admin .kk .l { font-size: 12.5px; color: #93a1b8; }
+.d .admin table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13.5px; }
+.d .admin th { text-align: left; color: #93a1b8; font-weight: 600; padding: 7px 6px; border-bottom: 1px solid #22304a; }
+.d .admin td { padding: 8px 6px; border-bottom: 1px solid #1a2438; font-variant-numeric: tabular-nums; }
+.d .admin .scroll { overflow-x: auto; }
+.d .admin th, .d .admin td { white-space: nowrap; }
+.d .feat { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 12px; }
+.d .feat div { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
+.d .feat b { font-family: Sora, sans-serif; display: block; margin-bottom: 4px; }
+.d .book { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; }
+.d .book label { font: 600 13px Inter, sans-serif; color: var(--ink2); display: grid; gap: 5px; }
+.d .book input, .d .book select { font: inherit; padding: 10px 11px; border: 1px solid var(--line); border-radius: 10px; width: 100%; background: #fff; color: var(--ink); }
+.d .quote { font: 800 22px Sora, sans-serif; }
+.d footer { margin-top: 40px; padding: 26px 16px 40px; text-align: center; color: var(--mut); font-size: 13px; border-top: 1px solid var(--line); background: var(--card); }
+.d footer b { color: var(--ink); }
+.d .modal-bg { position: fixed; inset: 0; background: rgba(8,12,20,.55); z-index: 20; display: grid; place-items: end center; }
+.d .modal { background: var(--card); width: min(560px, 100%); border-radius: 18px 18px 0 0; max-height: 92vh; overflow: auto; }
+.d .modal .b { padding: 16px; display: grid; gap: 10px; }
+@media (min-width: 700px) { .d .modal-bg { place-items: center; } .d .modal { border-radius: 18px; } }
+.d .note { background: #fff8e6; border: 1px solid #f3dc9a; color: #6b4e00; border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-top: 10px; }
+`;
+
+function header(d) {
+  const initials = (d.business || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
+  const call = wa(d.wa, `Hi ${d.business}, I saw your website.`);
+  return `<div class="bar">Demo made for <b>${esc(d.business)}</b> by ${esc(d.builder || "Zain")} · sample data</div>
+  <header><div class="logo">${esc(initials)}</div><div><div class="nm">${esc(d.business)}</div><div class="sub">${esc(d.area || "Lusaka")}${d.rating ? " · " + d.rating + "★" : ""}</div></div>
+  ${call ? `<a class="btn pri cta" href="${esc(call)}" target="_blank" rel="noopener">WhatsApp</a>` : ""}</header>`;
+}
+function footer(d) {
+  return `<footer><b>This is a demo built for ${esc(d.business)}.</b><br>The listings and numbers are samples. Your real ${d.template === "carhire" ? "fleet" : d.template === "dealer" ? "stock" : d.template === "importer" ? "orders, customers" : "products and records"}, photos and prices go here.<br><br>
+    Every screen, field and report here is built around how ${esc(d.business)} works, and can be changed to fit your process.<br><br>
+    Like it? Reply to ${esc(d.builder || "Zain")}'s WhatsApp message and it can be live for ${esc(d.business)} in days.</footer>`;
+}
+
+function dealer(d, root) {
+  let filter = "All";
+  const types = ["All", ...new Set(CARS.map(c => c.type))];
+  const draw = () => {
+    root.querySelector("#cars").innerHTML = CARS.filter(c => filter === "All" || c.type === filter).map((c, i) => `
+      <article class="car">${carArt(c.hue, c.make + " " + c.model)}
+        <div class="b"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><span class="t">${esc(c.year + " " + c.make)}</span><span class="tag ${c.status}">${c.status}</span></div>
+        <div class="m">${esc(c.model)} · ${c.km.toLocaleString()} km · ${c.fuel}</div>
+        <div class="p">${K(c.price)}</div>
+        <button class="btn" data-car="${CARS.indexOf(c)}" ${c.status === "Sold" ? "disabled" : ""}>${c.status === "Sold" ? "Sold" : "View details"}</button></div></article>`).join("");
+    root.querySelectorAll(".chip").forEach(ch => ch.classList.toggle("on", ch.dataset.f === filter));
+  };
+  root.innerHTML = `<div class="d">${header(d)}<div class="wrap">
+    <section class="hero"><div class="rating">${stars(d.rating)}</div>
+      <h1>Quality cars ${esc(where(d.area))}, ready to drive away.</h1>
+      <p>${esc(d.tagline || `Browse ${d.business}'s latest stock with real prices. See something you like? Ask about it on WhatsApp in one tap.`)}</p>
+      <a class="btn acc" href="#stock">Browse cars</a></section>
+    <div id="stock"></div><h2>Cars in stock</h2><p class="lead">Updated automatically from the stock system: when a car is reserved or sold, it changes here too.</p>
+    <div class="chips">${types.map(t => `<button class="chip" data-f="${esc(t)}">${esc(t)}</button>`).join("")}</div>
+    <div class="grid" id="cars"></div>
+    <h2>Behind the scenes: your stock system</h2>
+    <p class="lead">What ${esc(d.business)}'s team would see: every car from purchase to sale, in one place.</p>
+    <div class="admin"><div class="k">
+      <div class="kk"><div class="l">Cars in stock</div><div class="v">14</div></div>
+      <div class="kk"><div class="l">Sold this month</div><div class="v">6</div></div>
+      <div class="kk"><div class="l">Profit this month</div><div class="v">${K(212000)}</div></div>
+      <div class="kk"><div class="l">WhatsApp enquiries</div><div class="v">41</div></div></div>
+      <div class="scroll"><table><tr><th>Car</th><th>Bought</th><th>Costs</th><th>Price</th><th>Profit</th><th>Status</th></tr>
+        ${CARS.slice(0, 5).map((c, i) => { const buy = Math.round(c.price * .74 / 1000) * 1000, cost = [9500, 12000, 7800, 5200, 14500][i];
+          return `<tr><td>${esc(c.year + " " + c.make + " " + c.model.split(" ")[0])}</td><td>${K(buy)}</td><td>${K(cost)}</td><td>${K(c.price)}</td><td style="color:#5fe3a1">${K(c.price - buy - cost)}</td><td>${c.status}</td></tr>`; }).join("")}
+      </table></div></div>
+    ${d.problem ? `<div class="note">Built with ${esc(d.business)} in mind: ${esc(d.problem)}</div>` : ""}
+    <div class="feat"><div><b>Stock that's always right</b>Mark a car reserved or sold once, and the website and your team see it instantly.</div>
+      <div><b>Cost and profit per car</b>Purchase price, duty, repairs and selling price, so you know what each car really made.</div>
+      <div><b>Enquiries in one list</b>Every buyer who asks about a car, with their number, so nobody is forgotten.</div></div>
+  </div>${footer(d)}</div>`;
+  draw();
+  root.addEventListener("click", e => {
+    const f = e.target.closest("[data-f]"); if (f) { filter = f.dataset.f; draw(); return; }
+    const b = e.target.closest("[data-car]"); if (b) { const c = CARS[+b.dataset.car]; const link = wa(d.wa, `Hi ${d.business}, is the ${c.year} ${c.make} ${c.model} (${K(c.price)}) still available?`);
+      const m = document.createElement("div"); m.className = "modal-bg"; m.innerHTML = `<div class="modal">${carArt(c.hue, c.model)}<div class="b">
+        <div style="display:flex;justify-content:space-between;align-items:center"><b style="font:800 20px Sora,sans-serif">${esc(c.year + " " + c.make + " " + c.model)}</b><span class="tag ${c.status}">${c.status}</span></div>
+        <div class="p" style="font:800 24px Sora,sans-serif">${K(c.price)}</div>
+        <div class="m" style="color:#4b5563">${c.km.toLocaleString()} km · ${c.fuel} · ${c.type} · Service history available · Registration help included</div>
+        ${link ? `<a class="btn pri" href="${esc(link)}" target="_blank" rel="noopener">Ask about this car on WhatsApp</a>` : ""}
+        <button class="btn" data-x>Close</button></div></div>`;
+      m.addEventListener("click", ev => { if (ev.target === m || ev.target.closest("[data-x]")) m.remove(); }); root.querySelector(".d").appendChild(m); }
+  });
+}
+
+function carhire(d, root) {
+  const today = new Date().toISOString().slice(0, 10), later = new Date(Date.now() + 3 * 864e5).toISOString().slice(0, 10);
+  root.innerHTML = `<div class="d">${header(d)}<div class="wrap">
+    <section class="hero"><div class="rating">${stars(d.rating)}</div>
+      <h1>Hire a car ${esc(where(d.area))} in two minutes.</h1>
+      <p>${esc(d.tagline || `${d.business}: pick your dates, see the price, book on WhatsApp.`)}</p></section>
+    <div class="book"><div style="font:700 17px Sora,sans-serif">Get an instant quote</div>
+      <label>Vehicle<select id="veh">${FLEET.map((f, i) => `<option value="${i}">${esc(f.name)} · ${K(f.rate)}/day</option>`).join("")}</select></label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><label>Pick-up<input id="d1" type="date" value="${today}"></label><label>Return<input id="d2" type="date" value="${later}"></label></div>
+      <div id="q" class="quote"></div><a class="btn pri" id="bk" target="_blank" rel="noopener">Book on WhatsApp</a></div>
+    <h2>Our fleet</h2><div class="grid">${FLEET.map(f => `<article class="car">${carArt(f.hue, f.name)}<div class="b"><span class="t">${esc(f.name)}</span>
+      <div class="m">${esc(f.cls)} · ${f.seats} seats</div><div class="p">${K(f.rate)}<span style="font:500 13px Inter;color:#8a94a3"> / day</span></div></div></article>`).join("")}</div>
+    <h2>Behind the scenes: your fleet system</h2><p class="lead">What ${esc(d.business)}'s office would see every morning.</p>
+    <div class="admin"><div class="k">
+      <div class="kk"><div class="l">On hire today</div><div class="v">9 / 14</div></div>
+      <div class="kk"><div class="l">Deposits held</div><div class="v">${K(38500)}</div></div>
+      <div class="kk"><div class="l">Service due this week</div><div class="v">2</div></div>
+      <div class="kk"><div class="l">Revenue this month</div><div class="v">${K(186400)}</div></div></div>
+      <div class="scroll"><table><tr><th>Vehicle</th><th>Status</th><th>Next service</th><th>This month</th></tr>
+        ${FLEET.map((f, i) => `<tr><td>${esc(f.name)}</td><td>${f.status}</td><td>${["3,200 km", "in 5 days", "1,100 km", "Overdue"][i]}</td><td>${K([14450, 36100, 41800, 9600][i])}</td></tr>`).join("")}</table></div></div>
+    ${d.problem ? `<div class="note">Built with ${esc(d.business)} in mind: ${esc(d.problem)}</div>` : ""}
+    <div class="feat"><div><b>Availability calendar</b>See which vehicle is free on which day, so you never double-book.</div>
+      <div><b>Deposits and damage records</b>Photos at pick-up and return, deposits held and refunded, all tracked.</div>
+      <div><b>Service reminders</b>Each vehicle's mileage and service dates, with alerts before they're due.</div></div>
+  </div>${footer(d)}</div>`;
+  const upd = () => { const f = FLEET[+root.querySelector("#veh").value]; const a = new Date(root.querySelector("#d1").value), b = new Date(root.querySelector("#d2").value);
+    const days = Math.max(1, Math.round((b - a) / 864e5) || 1); root.querySelector("#q").textContent = `${days} day${days > 1 ? "s" : ""} · ${K(days * f.rate)}`;
+    const l = wa(d.wa, `Hi ${d.business}, I'd like to book the ${f.name} from ${root.querySelector("#d1").value} to ${root.querySelector("#d2").value} (${days} days).`);
+    const bk = root.querySelector("#bk"); if (l) bk.href = l; else bk.remove(); };
+  ["#veh", "#d1", "#d2"].forEach(s => root.querySelector(s).addEventListener("change", upd)); upd();
+}
+
+const STAGES = ["Order confirmed", "Deposit paid", "Shipped from Japan", "Arrived at port", "On the road to Zambia", "Cleared in Lusaka", "Handed over"];
+const ORDERS = [
+  { no: "MA-1042", who: "Chanda M.", car: "2017 Toyota Vitz", total: 92000, paid: 55500, stage: 4, due: "5 Oct", inst: 18250, state: "On track", hue: 200 },
+  { no: "MA-1038", who: "Mwila K.", car: "2016 Toyota Premio", total: 128000, paid: 102000, stage: 5, due: "1 Oct", inst: 13000, state: "Due in 3 days", hue: 18 },
+  { no: "MA-1051", who: "Bwalya N.", car: "2018 Honda Fit Hybrid", total: 115000, paid: 34500, stage: 2, due: "24 Sep", inst: 20125, state: "Overdue", hue: 140 },
+  { no: "MA-1029", who: "Natasha P.", car: "2015 Toyota Hilux Surf", total: 210000, paid: 210000, stage: 6, due: "", inst: 0, state: "Paid in full", hue: 40 },
+  { no: "MA-1055", who: "Mutale S.", car: "2019 Nissan Note e-Power", total: 124000, paid: 37200, stage: 1, due: "12 Oct", inst: 21700, state: "On track", hue: 300 },
+];
+function importer(d, root) {
+  const stClass = s => s === "Overdue" ? "Sold" : s.startsWith("Due") ? "Reserved" : "Available";
+  root.innerHTML = `<div class="d">${header(d)}<div class="wrap">
+    <section class="hero"><div class="rating">${stars(d.rating)}</div>
+      <h1>Your car from Japan, on a payment plan, tracked all the way to Lusaka.</h1>
+      <p>${esc(d.tagline || `${d.business}, ${where(d.area)}: choose your car, pay in instalments, and check where it is any time, without having to call.`)}</p>
+      <a class="btn acc" href="#track">Track my car</a></section>
+
+    <div id="track"></div><div class="book"><div style="font:700 17px Sora,sans-serif">Track my car</div>
+      <label>Order number<input id="ono" placeholder="e.g. MA-1042" autocomplete="off"></label>
+      <div class="chips" style="margin:0">${ORDERS.slice(0, 3).map(o => `<button class="chip" data-o="${o.no}">Try ${o.no}</button>`).join("")}</div>
+      <div id="tout"></div></div>
+
+    <h2>Plan your payments</h2><p class="lead">See your instalments before you commit.</p>
+    <div class="book">
+      <label>Car price (landed in Lusaka)<input id="pp" type="number" inputmode="numeric" value="120000" min="10000" step="1000"></label>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <label>Deposit<select id="dep">${[30, 40, 50].map(p => `<option value="${p}" ${p === 40 ? "selected" : ""}>${p}%</option>`).join("")}</select></label>
+        <label>Pay over<select id="mo">${[3, 4, 6].map(m => `<option value="${m}" ${m === 4 ? "selected" : ""}>${m} months</option>`).join("")}</select></label></div>
+      <div id="plan" class="quote"></div><div class="m" id="plan2" style="color:#4b5563;font-size:13.5px"></div>
+      <a class="btn pri" id="start" target="_blank" rel="noopener">Start my order on WhatsApp</a></div>
+
+    <h2>Behind the scenes: your orders &amp; instalments system</h2>
+    <p class="lead">What ${esc(d.business)}'s office would see: every customer, every car, every kwacha owed.</p>
+    <div class="admin"><div class="k">
+      <div class="kk"><div class="l">Active orders</div><div class="v">23</div></div>
+      <div class="kk"><div class="l">Cars on the way</div><div class="v">9</div></div>
+      <div class="kk"><div class="l">Collected this month</div><div class="v">${K(386000)}</div></div>
+      <div class="kk"><div class="l">Overdue instalments</div><div class="v" style="color:#ff8a7a">4 · ${K(58500)}</div></div></div>
+      <div class="scroll"><table><tr><th>Customer</th><th>Car</th><th>Where it is</th><th>Paid</th><th>Balance</th><th>Next due</th><th>Status</th></tr>
+        ${ORDERS.map(o => `<tr data-o="${o.no}" style="cursor:pointer"><td>${esc(o.who)}</td><td>${esc(o.car)}</td><td>${STAGES[o.stage]}</td><td>${K(o.paid)}</td><td>${K(o.total - o.paid)}</td><td>${o.due ? o.due + " · " + K(o.inst) : "–"}</td>
+          <td><span class="tag ${stClass(o.state)}">${o.state}</span></td></tr>`).join("")}</table></div>
+      <div style="margin-top:14px;font-size:13px;color:#93a1b8">Automatic WhatsApp reminder, sent 3 days before each due date:</div>
+      <div style="background:#1f2c1f;color:#dff5df;border-radius:12px 12px 12px 4px;padding:10px 12px;margin-top:6px;font-size:13.5px;max-width:520px">
+        Hi Mwila, a friendly reminder from ${esc(d.business)}: your instalment of ${K(13000)} for the 2016 Toyota Premio is due on 1 Oct. Good news, your car has cleared customs in Lusaka. Balance after this payment: ${K(13000)}.</div></div>
+    <div class="feat"><div><b>Instalments that track themselves</b>Every payment recorded against the customer and the car, with balances always up to date.</div>
+      <div><b>Reminders sent for you</b>Customers get a polite WhatsApp reminder before each due date, so you chase fewer people.</div>
+      <div><b>"Where is my car?" answered</b>Update the shipping stage once, and the customer can check it themselves any time.</div></div>
+  </div>${footer(d)}</div>`;
+  const show = no => {
+    const o = ORDERS.find(x => x.no.toLowerCase() === String(no).trim().toLowerCase()), out = root.querySelector("#tout");
+    if (!o) { out.innerHTML = no ? `<div class="m" style="color:#c0392b">No order ${esc(no)} found. Check the number on your receipt.</div>` : ""; return; }
+    root.querySelector("#ono").value = o.no;
+    out.innerHTML = `<div style="display:flex;gap:12px;align-items:center;margin:4px 0 10px"><div style="width:84px;flex:none;border-radius:10px;overflow:hidden">${carArt(o.hue, o.car)}</div>
+        <div><b style="font:700 16px Sora,sans-serif">${esc(o.car)}</b><div class="m" style="color:#4b5563">${esc(o.who)} · ${o.no}</div></div></div>
+      <ol style="list-style:none;margin:0;padding:0;display:grid;gap:0">${STAGES.map((s, i) => `<li style="display:flex;gap:10px;align-items:flex-start;padding:4px 0">
+        <span style="width:18px;height:18px;border-radius:50%;flex:none;margin-top:2px;display:grid;place-items:center;font-size:11px;color:#fff;background:${i < o.stage ? "#12834a" : i === o.stage ? "#0f5bd8" : "#d6dbe1"}">${i < o.stage ? "✓" : ""}</span>
+        <span style="${i === o.stage ? "font-weight:700" : i > o.stage ? "color:#8a94a3" : ""}">${s}${i === o.stage ? " · now" : ""}</span></li>`).join("")}</ol>
+      <div style="background:#f6f7f9;border-radius:10px;padding:10px 12px;margin-top:10px;font-size:14px">Paid <b>${K(o.paid)}</b> of ${K(o.total)}${o.total > o.paid ? ` · next payment <b>${K(o.inst)}</b> on ${o.due}` : " · <b style='color:#12834a'>fully paid</b>"}</div>`;
+  };
+  const plan = () => {
+    const p = Math.max(0, Number(root.querySelector("#pp").value) || 0), dep = +root.querySelector("#dep").value, mo = +root.querySelector("#mo").value;
+    const depAmt = p * dep / 100, each = (p - depAmt) / mo;
+    root.querySelector("#plan").textContent = `${K(depAmt)} now, then ${K(each)} × ${mo}`;
+    root.querySelector("#plan2").textContent = `Deposit secures your car in Japan. Your car ships once the deposit clears, and you finish paying while it travels.`;
+    const l = wa(d.wa, `Hi ${d.business}, I'd like to order a car around ${K(p)} with ${dep}% deposit and ${mo} monthly payments.`);
+    const s = root.querySelector("#start"); if (l) s.href = l; else s.remove();
+  };
+  root.querySelector("#ono").addEventListener("input", e => show(e.target.value));
+  ["#pp", "#dep", "#mo"].forEach(s => root.querySelector(s).addEventListener("input", plan));
+  root.addEventListener("click", e => { const b = e.target.closest("[data-o]"); if (b) { show(b.dataset.o); root.querySelector("#track").scrollIntoView({ behavior: "smooth" }); } });
+  plan();
+}
+
+function business(d, root) {
+  const k = KINDS[d.kind] || { headline: b => `${b}, now online.`, services: ["Friendly service", "Fair prices", "Located " + where(d.area)],
+    kpis: [["Sales today", "K 8,450"], ["Customers this month", "312"], ["Items running low", "5"], ["Owed by customers", "K 12,300"]],
+    feats: [["Sales and stock together", "Every sale updates your stock, with alerts before you run out."], ["Customer records", "Who bought what, who owes you, and who to follow up."], ["Reports on your phone", "Daily and monthly totals wherever you are."]] };
+  const chat = wa(d.wa, `Hi ${d.business}, I found you online.`);
+  root.innerHTML = `<div class="d">${header(d)}<div class="wrap">
+    <section class="hero"><div class="rating">${stars(d.rating)}</div>
+      <h1>${esc(d.headline || k.headline(d.business))}</h1>
+      <p>${esc(d.tagline || `Everything customers need to know about ${d.business}, ${where(d.area)}, and one tap to reach you on WhatsApp.`)}</p>
+      ${chat ? `<a class="btn pri" href="${esc(chat)}" target="_blank" rel="noopener">Chat on WhatsApp</a>` : ""}</section>
+    <h2>What we offer</h2><div class="feat">${(d.services || k.services).map(s => `<div><b>${esc(s)}</b>Ask us on WhatsApp for details and prices.</div>`).join("")}</div>
+    <h2>Behind the scenes: your management system</h2><p class="lead">What ${esc(d.business)} would see every day.</p>
+    <div class="admin"><div class="k">${k.kpis.map(([l, v]) => `<div class="kk"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div></div>`).join("")}</div></div>
+    <div class="feat">${k.feats.map(([t, x]) => `<div><b>${esc(t)}</b>${esc(x)}</div>`).join("")}</div>
+  </div>${footer(d)}</div>`;
+}
+
+window.DemoPage = {
+  render(demo) {
+    const st = document.createElement("style"); st.textContent = CSS; document.head.appendChild(st);
+    const d = { ...(demo.data || {}), template: demo.template };
+    document.title = `${d.business || "Demo"} · Demo`;
+    const root = document.getElementById("root");
+    ({ dealer, carhire, importer }[demo.template] || business)(d, root);
+  },
+};
+})();
+
+window.DemoPage.render({"template": "importer", "data": {"business": "Mile Auto Solutions", "area": "Cairo Road", "rating": "5.0", "wa": "260770246900", "builder": "Zain"}});
+</script>
+</body>
+</html>
