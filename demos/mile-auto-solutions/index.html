@@ -3,317 +3,330 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mile Auto Solutions · Demo</title>
+<title>Mile Auto Office · Demo</title>
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="no-referrer">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<style>html,body{margin:0;background:#fff}</style>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<style>
+:root { --navy:#0f1f3a; --navy2:#1b2f52; --amber:#f2a33a; --ink:#111827; --ink2:#4b5563; --mut:#8a94a3; --bg:#f4f6f9; --card:#fff; --line:#e3e7ee;
+  --good:#12834a; --goodbg:#e4f5ec; --bad:#c0392b; --badbg:#fdeceb; --warn:#9a6200; --warnbg:#fff3dc; --blue:#1d5fd1; --bluebg:#e8f0ff; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 Inter, system-ui, -apple-system, sans-serif; -webkit-text-size-adjust: 100%; }
+.wrap { max-width: 760px; margin: 0 auto; padding: 0 16px; }
+.demo-bar { background: var(--amber); color: #3a2500; font-size: 12.5px; font-weight: 600; text-align: center; padding: 7px 12px; }
+header.top { background: var(--navy); color: #fff; padding: 18px 0 22px; }
+.brand { display: flex; align-items: center; gap: 12px; }
+.logo { width: 42px; height: 42px; border-radius: 12px; background: var(--amber); color: var(--navy); display: grid; place-items: center; font-weight: 800; font-size: 17px; flex: none; }
+.brand b { display: block; font-size: 17px; }
+.brand span { font-size: 12.5px; color: #aebbd2; }
+header h1 { font-size: clamp(24px, 6.4vw, 34px); line-height: 1.15; margin: 18px 0 8px; letter-spacing: -.02em; }
+header p { color: #cfd8e8; margin: 0; max-width: 56ch; }
+nav.jump { position: sticky; top: 0; z-index: 10; background: rgba(244,246,249,.96); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+nav.jump .wrap { display: flex; gap: 6px; overflow-x: auto; padding-top: 9px; padding-bottom: 9px; scrollbar-width: none; }
+nav.jump a { flex: none; text-decoration: none; color: var(--ink2); font-weight: 600; font-size: 13px; padding: 7px 12px; border-radius: 20px; background: var(--card); border: 1px solid var(--line); }
+section { padding: 26px 0 6px; }
+.step { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .06em; }
+.step i { font-style: normal; width: 22px; height: 22px; border-radius: 50%; background: var(--blue); color: #fff; display: grid; place-items: center; font-size: 12px; }
+h2 { font-size: 22px; line-height: 1.2; margin: 8px 0 4px; letter-spacing: -.01em; }
+.sub { color: var(--ink2); margin: 0 0 14px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+.kpis { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 10px; margin-bottom: 12px; }
+@media (min-width: 620px) { .kpis { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+.kpi .l { font-size: 12.5px; color: var(--mut); font-weight: 600; }
+.kpi .v { font-size: 22px; font-weight: 800; font-variant-numeric: tabular-nums; margin-top: 2px; overflow-wrap: anywhere; }
+.kpi .n { font-size: 12px; color: var(--ink2); }
+.kpi.bad .v { color: var(--bad); }
+.list-h { display: flex; justify-content: space-between; align-items: baseline; margin: 16px 0 8px; }
+.list-h b { font-size: 15px; }
+.list-h span { font-size: 12.5px; color: var(--mut); }
+.row { display: flex; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.row:last-child { border-bottom: 0; }
+.av { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px; flex: none; background: var(--bluebg); color: var(--blue); }
+.grow { flex: 1; min-width: 0; }
+.nm { font-weight: 700; }
+.meta { font-size: 13px; color: var(--ink2); }
+.amt { font-weight: 800; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+.pill { display: inline-block; font-size: 11.5px; font-weight: 700; padding: 2px 8px; border-radius: 20px; white-space: nowrap; }
+.pill.bad { background: var(--badbg); color: var(--bad); } .pill.warn { background: var(--warnbg); color: var(--warn); }
+.pill.good { background: var(--goodbg); color: var(--good); } .pill.blue { background: var(--bluebg); color: var(--blue); }
+.btn { font: 600 14px Inter, system-ui, sans-serif; border-radius: 10px; padding: 10px 14px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; white-space: nowrap; }
+.btn.sm { padding: 7px 11px; font-size: 13px; }
+.btn.pri { background: var(--navy); color: #fff; border-color: var(--navy); }
+.btn.wa { background: #1faa59; color: #fff; border-color: #1faa59; }
+.btn:disabled { opacity: .55; cursor: default; }
+.empty { color: var(--mut); font-size: 14px; padding: 8px 0; }
+label { display: grid; gap: 5px; font-size: 13px; font-weight: 600; color: var(--ink2); margin-bottom: 10px; }
+input, select { font: 15px Inter, system-ui, sans-serif; padding: 11px 12px; border: 1px solid var(--line); border-radius: 10px; width: 100%; background: #fff; color: var(--ink); }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.hint { font-size: 13px; color: var(--ink2); background: var(--bg); border-radius: 10px; padding: 9px 11px; margin-bottom: 10px; }
+.receipt { border: 1px dashed #b8c2d3; border-radius: 14px; padding: 14px; margin-top: 12px; background: #fcfdff; }
+.receipt .rh { display: flex; justify-content: space-between; gap: 10px; border-bottom: 1px dashed #cfd6e2; padding-bottom: 8px; margin-bottom: 8px; }
+.receipt .line { display: flex; justify-content: space-between; gap: 10px; font-size: 14px; padding: 3px 0; }
+.stage-h { display: flex; align-items: center; gap: 8px; margin: 14px 0 6px; font-weight: 700; font-size: 14px; }
+.stage-h .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--blue); }
+.stage-h .c { margin-left: auto; font-size: 12px; color: var(--mut); font-weight: 600; }
+.carrow { display: flex; gap: 10px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; margin-bottom: 6px; }
+.route { display: flex; gap: 0; margin: 4px 0 12px; overflow-x: auto; scrollbar-width: none; }
+.route span { flex: none; font-size: 11.5px; font-weight: 600; color: var(--ink2); background: var(--card); border: 1px solid var(--line); padding: 5px 9px; border-radius: 8px; }
+.route em { flex: none; font-style: normal; color: var(--mut); padding: 5px 4px; font-size: 12px; }
+.phone { width: min(330px, 100%); margin: 6px auto 0; border: 10px solid #0d1117; border-radius: 34px; background: #fff; overflow: hidden; box-shadow: 0 18px 40px rgba(15,31,58,.18); }
+.phone .ph { background: var(--navy); color: #fff; padding: 14px 14px 12px; display: flex; gap: 10px; align-items: center; }
+.phone .ph .logo { width: 32px; height: 32px; font-size: 13px; border-radius: 9px; }
+.phone .pb { padding: 14px; }
+.steps { list-style: none; margin: 10px 0 0; padding: 0; }
+.steps li { display: flex; gap: 10px; align-items: flex-start; padding: 5px 0; font-size: 14px; }
+.steps li .b { width: 18px; height: 18px; border-radius: 50%; flex: none; margin-top: 2px; display: grid; place-items: center; font-size: 10.5px; color: #fff; background: #d6dbe3; }
+.steps li.done .b { background: var(--good); } .steps li.now .b { background: var(--blue); } .steps li.now { font-weight: 700; } .steps li.todo { color: var(--mut); }
+.bar { height: 9px; background: #e8ecf2; border-radius: 9px; overflow: hidden; margin: 6px 0; }
+.bar i { display: block; height: 100%; background: var(--good); border-radius: 9px; }
+.feat { display: grid; gap: 10px; }
+@media (min-width: 620px) { .feat { grid-template-columns: 1fr 1fr; } }
+.feat .card b { display: block; margin-bottom: 3px; }
+.feat .card { font-size: 14px; color: var(--ink2); }
+.cta { background: var(--navy); color: #fff; border-radius: 18px; padding: 20px; margin-top: 16px; }
+.cta p { color: #cfd8e8; margin: 6px 0 0; }
+footer { text-align: center; color: var(--mut); font-size: 12.5px; padding: 28px 16px 40px; }
+.modal-bg { position: fixed; inset: 0; background: rgba(8,14,26,.55); z-index: 50; display: grid; place-items: end center; }
+.modal { background: #fff; width: min(520px, 100%); border-radius: 18px 18px 0 0; padding: 16px 16px calc(16px + env(safe-area-inset-bottom)); max-height: 90vh; overflow: auto; }
+@media (min-width: 620px) { .modal-bg { place-items: center; } .modal { border-radius: 18px; } }
+.bubble { background: #dcf8c6; border-radius: 12px 12px 12px 3px; padding: 10px 12px; font-size: 14px; white-space: pre-wrap; margin: 10px 0 14px; }
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom)); transform: translateX(-50%); background: var(--ink); color: #fff; padding: 11px 16px; border-radius: 12px; font-size: 14px; z-index: 60; width: max-content; max-width: calc(100% - 32px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+</style>
 </head>
 <body>
-<div id="root"></div>
+<div class="demo-bar">Demo prepared for Mile Auto Solutions · sample customers and numbers · tap anything, it works</div>
+<header class="top"><div class="wrap">
+  <div class="brand"><div class="logo">MA</div><div><b>Mile Auto Office</b><span>Cairo Road, Lusaka</span></div></div>
+  <h1>Every car, every customer and every kwacha owed, in one place.</h1>
+  <p>A simple system for how Mile Auto works: importing cars from Japan and selling them on payment plans. Open it on any phone or computer.</p>
+</div></header>
+<nav class="jump" aria-label="Sections"><div class="wrap">
+  <a href="#money">1 · Who owes you</a><a href="#pay">2 · Record a payment</a><a href="#cars">3 · Where cars are</a><a href="#customer">4 · Customer's view</a><a href="#yours">5 · Made for you</a>
+</div></nav>
+
+<main class="wrap">
+  <section id="money">
+    <div class="step"><i>1</i> Your morning check</div>
+    <h2>Who owes you, and who is late?</h2>
+    <p class="sub">Open the system and see straight away what's been paid, what's due this week and who needs a reminder.</p>
+    <div class="kpis" id="kpis"></div>
+    <div class="card">
+      <div class="list-h" style="margin-top:0"><b>Late payments</b><span>send a reminder in one tap</span></div>
+      <div id="overdue"></div>
+      <div class="list-h"><b>Due in the next 7 days</b><span>reminded automatically 3 days before</span></div>
+      <div id="dueSoon"></div>
+    </div>
+  </section>
+
+  <section id="pay">
+    <div class="step"><i>2</i> When a customer pays</div>
+    <h2>Record a payment in 10 seconds</h2>
+    <p class="sub">Choose the customer, and the amount they owe fills in by itself. Their balance, your totals and their receipt all update together. Try it.</p>
+    <div class="card">
+      <label>Customer<select id="pCust"></select></label>
+      <div class="hint" id="pInfo"></div>
+      <div class="two">
+        <label>Amount (K)<input id="pAmt" type="number" inputmode="numeric" min="1"></label>
+        <label>Paid by<select id="pMethod"><option>MTN MoMo</option><option>Airtel Money</option><option>Bank transfer</option><option>Cash</option></select></label>
+      </div>
+      <label>Reference (optional)<input id="pRef" placeholder="e.g. MoMo ID 8H3K2…"></label>
+      <button class="btn pri" id="pSave" style="width:100%">Save payment</button>
+      <div id="receipt"></div>
+    </div>
+  </section>
+
+  <section id="cars">
+    <div class="step"><i>3</i> The journey</div>
+    <h2>Where is every car right now?</h2>
+    <p class="sub">Every car from Japan to handover. When you move a car to its next stage, the customer gets a WhatsApp update automatically, so they don't need to call and ask.</p>
+    <div class="route" aria-label="Route"><span>Japan</span><em>→</em><span>Ship</span><em>→</em><span>Dar es Salaam</span><em>→</em><span>Nakonde border</span><em>→</em><span>Lusaka · ZRA clearing</span><em>→</em><span>Ready</span></div>
+    <div id="pipeline"></div>
+  </section>
+
+  <section id="customer">
+    <div class="step"><i>4</i> Fewer phone calls</div>
+    <h2>What your customer sees</h2>
+    <p class="sub">Each customer gets a private link on WhatsApp showing where their car is and what they still owe. Pick a customer to see their page.</p>
+    <label style="max-width:330px;margin:0 auto 10px">View as<select id="vCust"></select></label>
+    <div class="phone" id="phone"></div>
+  </section>
+
+  <section id="yours">
+    <div class="step"><i>5</i> Your way</div>
+    <h2>Built around how Mile Auto works</h2>
+    <p class="sub">This demo is a starting point. The real system is built to fit your exact process, not the other way round.</p>
+    <div class="feat">
+      <div class="card"><b>Your stages and your rules</b>Your own journey steps (Dar es Salaam, Walvis Bay, Durban), your deposit and instalment terms, and late-payment rules.</div>
+      <div class="card"><b>Logins for your team</b>Sales can add customers and payments. Only you see profit, costs and the full money picture.</div>
+      <div class="card"><b>Costs per car (owner only)</b>Auction price, shipping, duty and clearing on each car, so you know what every sale really made.</div>
+      <div class="card"><b>Private and backed up</b>Your records stay yours, are backed up daily, and work on any phone or laptop. Nothing to install.</div>
+    </div>
+    <div class="cta"><b style="font-size:18px">Next step: a 15-minute call</b>
+      <p>You show me how you run orders and payments today, and I'll show you exactly how it would work in your system. Just reply to my WhatsApp message.</p></div>
+  </section>
+</main>
+<footer>Prepared by Zain for Mile Auto Solutions. All customers, cars and amounts on this page are samples.</footer>
+
 <script>
 (function () {
 "use strict";
+const $ = s => document.querySelector(s);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const K = n => "K " + Math.round(Number(n) || 0).toLocaleString();
-const wa = (num, text) => num ? `https://wa.me/${num}?text=${encodeURIComponent(text)}` : null;
-const where = a => { a = a || "Lusaka"; return /\b(road|rd|street|st|avenue|ave|drive|dr)\b/i.test(a) ? "on " + a : "in " + a; };
-const KINDS = {
-  Clinic: { headline: b => `${b}: book your visit in seconds.`, services: ["Check-ups and consultations", "Book an appointment on WhatsApp", "Friendly, professional care"],
-    kpis: [["Appointments today", "18"], ["Patients this month", "264"], ["No-shows avoided", "11"], ["Unpaid invoices", "K 6,800"]],
-    feats: [["Appointments and reminders", "Patients book online and get a WhatsApp reminder, so fewer no-shows."], ["Patient records", "History, treatments and payments per patient, in one place."], ["Reports on your phone", "Daily bookings and income wherever you are."]] },
-  Restaurant: { headline: b => `${b}: see the menu, order on WhatsApp.`, services: ["Full menu with prices", "Order ahead on WhatsApp", "Dine in or take away"],
-    kpis: [["Orders today", "73"], ["Sales today", "K 9,840"], ["Best seller", "Chicken & chips"], ["Items running low", "4"]],
-    feats: [["Digital menu", "Photos, prices and specials customers can browse on their phone."], ["Orders and sales", "Every order recorded, with daily totals and best sellers."], ["Stock alerts", "Know before you run out of your top ingredients."]] },
-  Hospitality: { headline: b => `${b}: check rooms and book direct.`, services: ["Comfortable rooms", "Book direct on WhatsApp", "Events and conferences"],
-    kpis: [["Rooms booked tonight", "12 / 16"], ["Revenue this month", "K 142,000"], ["Check-ins today", "5"], ["Deposits held", "K 9,500"]],
-    feats: [["Room calendar", "See which rooms are free on which night, no double bookings."], ["Direct bookings", "Guests book with you, not through expensive booking sites."], ["Guest records", "Stays, payments and preferences for every guest."]] },
-};
-const stars = r => r ? "★".repeat(Math.round(r)) + "☆".repeat(5 - Math.round(r)) : "";
+const K = n => "K " + Math.round(Number(n) || 0).toLocaleString("en-US");
+const DAY = 864e5, today = new Date(); today.setHours(12, 0, 0, 0);
+const dayOf = off => new Date(today.getTime() + off * DAY);
+const fmt = d => d.toLocaleDateString("en-GB", { day: "numeric", month: "short" });
+const STAGES = ["Bought in Japan", "On the ship", "At Dar es Salaam port", "Crossing at Nakonde", "In Lusaka · ZRA clearing", "Ready for collection", "Handed over"];
+const initials = n => n.split(" ").map(w => w[0]).join("").slice(0, 2);
 
-const CARS = [
-  { make: "Toyota", model: "Hilux D/Cab 2.8 GD-6", year: 2019, km: 86000, price: 485000, type: "Pickup", fuel: "Diesel", status: "Available", hue: 18 },
-  { make: "Toyota", model: "Fortuner 2.8", year: 2018, km: 92000, price: 520000, type: "SUV", fuel: "Diesel", status: "Available", hue: 200 },
-  { make: "Mazda", model: "CX-5 2.0", year: 2017, km: 71000, price: 265000, type: "SUV", fuel: "Petrol", status: "Reserved", hue: 350 },
-  { make: "Honda", model: "Fit Hybrid", year: 2016, km: 64000, price: 118000, type: "Hatch", fuel: "Hybrid", status: "Available", hue: 140 },
-  { make: "Mercedes-Benz", model: "C200", year: 2016, km: 78000, price: 310000, type: "Sedan", fuel: "Petrol", status: "Available", hue: 230 },
-  { make: "Nissan", model: "X-Trail 2.0", year: 2015, km: 103000, price: 175000, type: "SUV", fuel: "Petrol", status: "Sold", hue: 40 },
+// sample customers; dates are relative to today so the demo always looks current
+const C = [
+  { id: 1, name: "Chanda Mwale", car: "2017 Toyota Vitz", price: 92000, inst: 18250, due: 7, stage: 2, pays: [[-58, 36800, "Bank transfer", "Deposit"], [-27, 18700, "MTN MoMo", "Instalment"]] },
+  { id: 2, name: "Mwila Kapata", car: "2016 Toyota Premio", price: 128000, inst: 13000, due: 3, stage: 4, pays: [[-80, 51200, "Bank transfer", "Deposit"], [-62, 12700, "Airtel Money", "Instalment"], [-45, 12700, "MTN MoMo", "Instalment"], [-28, 12700, "MTN MoMo", "Instalment"], [-11, 12700, "Airtel Money", "Instalment"]] },
+  { id: 3, name: "Bwalya Ngosa", car: "2018 Honda Fit Hybrid", price: 115000, inst: 20125, due: -4, stage: 1, pays: [[-34, 34500, "Bank transfer", "Deposit"]] },
+  { id: 4, name: "Natasha Phiri", car: "2015 Toyota Hilux Surf", price: 210000, inst: 42000, due: null, stage: 5, pays: [[-95, 84000, "Bank transfer", "Deposit"], [-65, 42000, "Bank transfer", "Instalment"], [-35, 42000, "Cash", "Instalment"], [-6, 42000, "Bank transfer", "Final payment"]] },
+  { id: 5, name: "Mutale Sichone", car: "2019 Nissan Note e-Power", price: 124000, inst: 21700, due: 26, stage: 0, pays: [[-2, 37200, "Bank transfer", "Deposit"]] },
+  { id: 6, name: "Kelvin Banda", car: "2016 Mazda Demio", price: 78000, inst: 15600, due: -9, stage: 3, pays: [[-70, 31200, "MTN MoMo", "Deposit"], [-39, 15600, "MTN MoMo", "Instalment"]] },
+  { id: 7, name: "Grace Mulenga", car: "2018 Toyota Sienta", price: 135000, inst: 27000, due: 1, stage: 1, pays: [[-48, 54000, "Bank transfer", "Deposit"], [-17, 27000, "Airtel Money", "Instalment"]] },
 ];
-const FLEET = [
-  { name: "Toyota Corolla", cls: "Economy", rate: 850, seats: 5, status: "Available", hue: 210 },
-  { name: "Toyota Fortuner 4x4", cls: "SUV", rate: 1900, seats: 7, status: "On hire", hue: 25 },
-  { name: "Toyota Hilux 4x4 + rooftop tent", cls: "Safari", rate: 2400, seats: 5, status: "Available", hue: 95 },
-  { name: "Toyota Hiace", cls: "Van", rate: 1600, seats: 14, status: "Service due", hue: 300 },
-];
+let receiptNo = 231;
+const paid = c => c.pays.reduce((a, p) => a + p[1], 0);
+const bal = c => Math.max(0, c.price - paid(c));
+const nextAmt = c => Math.min(c.inst, bal(c));
+const first = n => String(n).split(" ")[0];
 
-function carArt(hue, label) {
-  return `<svg viewBox="0 0 320 180" role="img" aria-label="${esc(label)}"><defs><linearGradient id="g${hue}" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="hsl(${hue} 45% 88%)"/><stop offset="1" stop-color="hsl(${hue} 40% 74%)"/></linearGradient></defs>
-  <rect width="320" height="180" fill="url(#g${hue})"/><rect y="138" width="320" height="42" fill="hsl(${hue} 20% 60% / .35)"/>
-  <path d="M52 124 L70 92 Q78 80 96 78 L196 76 Q214 76 228 88 L256 108 Q276 110 282 124 L282 132 L52 132 Z" fill="hsl(${hue} 35% 32%)"/>
-  <path d="M100 86 L190 84 Q204 84 214 94 L226 106 L90 108 Z" fill="hsl(${hue} 40% 86% / .9)"/>
-  <circle cx="100" cy="134" r="17" fill="#1b1d1f"/><circle cx="100" cy="134" r="7" fill="#9aa0a6"/>
-  <circle cx="236" cy="134" r="17" fill="#1b1d1f"/><circle cx="236" cy="134" r="7" fill="#9aa0a6"/></svg>`;
+function toast(t) { const el = document.createElement("div"); el.className = "toast"; el.textContent = t; document.body.appendChild(el); setTimeout(() => el.remove(), 3200); }
+function modal(html) {
+  const bg = document.createElement("div"); bg.className = "modal-bg"; bg.innerHTML = `<div class="modal" role="dialog">${html}</div>`;
+  bg.addEventListener("click", e => { if (e.target === bg || e.target.closest("[data-close]")) bg.remove(); });
+  document.body.appendChild(bg); return bg;
 }
 
-const CSS = `
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;700;800&family=Inter:wght@400;500;600&display=swap');
-.d { --ink:#101418; --ink2:#4b5563; --mut:#8a94a3; --bg:#f6f7f9; --card:#fff; --line:#e5e8ec; --acc:#0f5bd8; --acc2:#e8f0ff; --warm:#f5a524; --good:#12834a; --bad:#c0392b;
-  font: 15px/1.5 Inter, system-ui, sans-serif; color: var(--ink); background: var(--bg); min-height: 100vh; }
-.d * { box-sizing: border-box; }
-.d .bar { background: #0b1220; color: #fff; font-size: 13px; padding: 9px 16px; text-align: center; }
-.d .bar b { color: var(--warm); }
-.d header { background: var(--card); border-bottom: 1px solid var(--line); padding: 14px 16px; display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 5; }
-.d .logo { width: 36px; height: 36px; border-radius: 10px; background: var(--acc); color: #fff; display: grid; place-items: center; font: 800 16px Sora, sans-serif; flex: none; }
-.d header .nm { font: 700 16px Sora, sans-serif; line-height: 1.2; }
-.d header .sub { font-size: 12.5px; color: var(--mut); }
-.d header a.cta { margin-left: auto; }
-.d .wrap { max-width: 1040px; margin: 0 auto; padding: 0 16px; }
-.d .hero { padding: 34px 0 22px; }
-.d .hero h1 { font: 800 clamp(28px, 6vw, 44px)/1.08 Sora, sans-serif; margin: 0 0 10px; letter-spacing: -.02em; text-wrap: balance; }
-.d .hero p { color: var(--ink2); max-width: 60ch; margin: 0 0 16px; }
-.d .rating { color: var(--warm); letter-spacing: 2px; font-size: 15px; }
-.d .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 16px; border-radius: 10px; font: 600 14.5px Inter, sans-serif; text-decoration: none; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
-.d .btn.pri { background: #1faa59; border-color: #1faa59; color: #fff; }
-.d .btn.acc { background: var(--acc); border-color: var(--acc); color: #fff; }
-.d .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0 16px; }
-.d .chip { border: 1px solid var(--line); background: var(--card); padding: 7px 13px; border-radius: 20px; font: 600 13px Inter, sans-serif; cursor: pointer; color: var(--ink2); }
-.d .chip.on { background: var(--ink); color: #fff; border-color: var(--ink); }
-.d .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
-.d .car { background: var(--card); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; display: flex; flex-direction: column; }
-.d .car svg { width: 100%; height: auto; display: block; }
-.d .car .b { padding: 12px 14px 14px; display: grid; gap: 6px; }
-.d .car .t { font: 700 15.5px Sora, sans-serif; }
-.d .car .m { color: var(--mut); font-size: 13px; }
-.d .car .p { font: 800 19px Sora, sans-serif; font-variant-numeric: tabular-nums; }
-.d .tag { display: inline-block; font: 700 11.5px Inter, sans-serif; padding: 3px 8px; border-radius: 20px; }
-.d .tag.Available { background: #e3f6ec; color: var(--good); }
-.d .tag.Reserved { background: #fff2dc; color: #9a6200; }
-.d .tag.Sold, .d .tag.Service { background: #fde8e6; color: var(--bad); }
-.d .tag.On { background: var(--acc2); color: var(--acc); }
-.d h2 { font: 800 24px/1.15 Sora, sans-serif; margin: 34px 0 6px; letter-spacing: -.01em; }
-.d .lead { color: var(--ink2); margin: 0 0 16px; }
-.d .admin { background: #0b1220; color: #e7ecf3; border-radius: 18px; padding: 18px; margin: 12px 0 10px; }
-.d .admin .k { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; }
-.d .admin .kk { background: #141d2f; border-radius: 12px; padding: 12px; }
-.d .admin .kk .v { font: 800 22px Sora, sans-serif; font-variant-numeric: tabular-nums; }
-.d .admin .kk .l { font-size: 12.5px; color: #93a1b8; }
-.d .admin table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13.5px; }
-.d .admin th { text-align: left; color: #93a1b8; font-weight: 600; padding: 7px 6px; border-bottom: 1px solid #22304a; }
-.d .admin td { padding: 8px 6px; border-bottom: 1px solid #1a2438; font-variant-numeric: tabular-nums; }
-.d .admin .scroll { overflow-x: auto; }
-.d .admin th, .d .admin td { white-space: nowrap; }
-.d .feat { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin-top: 12px; }
-.d .feat div { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 14px; }
-.d .feat b { font-family: Sora, sans-serif; display: block; margin-bottom: 4px; }
-.d .book { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: grid; gap: 10px; }
-.d .book label { font: 600 13px Inter, sans-serif; color: var(--ink2); display: grid; gap: 5px; }
-.d .book input, .d .book select { font: inherit; padding: 10px 11px; border: 1px solid var(--line); border-radius: 10px; width: 100%; background: #fff; color: var(--ink); }
-.d .quote { font: 800 22px Sora, sans-serif; }
-.d footer { margin-top: 40px; padding: 26px 16px 40px; text-align: center; color: var(--mut); font-size: 13px; border-top: 1px solid var(--line); background: var(--card); }
-.d footer b { color: var(--ink); }
-.d .modal-bg { position: fixed; inset: 0; background: rgba(8,12,20,.55); z-index: 20; display: grid; place-items: end center; }
-.d .modal { background: var(--card); width: min(560px, 100%); border-radius: 18px 18px 0 0; max-height: 92vh; overflow: auto; }
-.d .modal .b { padding: 16px; display: grid; gap: 10px; }
-@media (min-width: 700px) { .d .modal-bg { place-items: center; } .d .modal { border-radius: 18px; } }
-.d .note { background: #fff8e6; border: 1px solid #f3dc9a; color: #6b4e00; border-radius: 12px; padding: 10px 12px; font-size: 13px; margin-top: 10px; }
-`;
-
-function header(d) {
-  const initials = (d.business || "?").split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join("").toUpperCase();
-  const call = wa(d.wa, `Hi ${d.business}, I saw your website.`);
-  return `<div class="bar">Demo made for <b>${esc(d.business)}</b> by ${esc(d.builder || "Zain")} · sample data</div>
-  <header><div class="logo">${esc(initials)}</div><div><div class="nm">${esc(d.business)}</div><div class="sub">${esc(d.area || "Lusaka")}${d.rating ? " · " + d.rating + "★" : ""}</div></div>
-  ${call ? `<a class="btn pri cta" href="${esc(call)}" target="_blank" rel="noopener">WhatsApp</a>` : ""}</header>`;
+// 1 · money
+function renderMoney() {
+  const month = today.getMonth(), yr = today.getFullYear();
+  let thisMonth = 0, count = 0;
+  C.forEach(c => c.pays.forEach(p => { const d = dayOf(p[0]); if (d.getMonth() === month && d.getFullYear() === yr) { thisMonth += p[1]; count++; } }));
+  const owed = C.reduce((a, c) => a + bal(c), 0);
+  const late = C.filter(c => c.due !== null && c.due < 0 && bal(c) > 0);
+  const soon = C.filter(c => c.due !== null && c.due >= 0 && c.due <= 7 && bal(c) > 0).sort((a, b) => a.due - b.due);
+  const lateAmt = late.reduce((a, c) => a + nextAmt(c), 0);
+  $("#kpis").innerHTML = [
+    ["Collected this month", K(thisMonth), `${count} payments`],
+    ["Still owed to you", K(owed), `${C.filter(c => bal(c) > 0).length} customers on plans`],
+    ["Late payments", late.length ? K(lateAmt) : "None", late.length ? `${late.length} customer${late.length > 1 ? "s" : ""}` : "everyone is on time", late.length ? "bad" : ""],
+    ["Cars on the way", C.filter(c => c.stage < 5).length, `${C.filter(c => c.stage === 5).length} ready for collection`],
+  ].map(([l, v, n, cls]) => `<div class="card kpi ${cls || ""}"><div class="l">${l}</div><div class="v">${v}</div><div class="n">${n}</div></div>`).join("");
+  $("#overdue").innerHTML = late.map(c => `<div class="row"><div class="av">${initials(c.name)}</div>
+      <div class="grow"><div class="nm">${esc(c.name)}</div><div class="meta">${esc(c.car)} · was due ${fmt(dayOf(c.due))}</div></div>
+      <div><div class="amt">${K(nextAmt(c))}</div><div style="text-align:right;margin-top:4px"><span class="pill bad">${-c.due} days late</span></div></div></div>
+      <div style="display:flex;justify-content:flex-end;margin:-4px 0 6px"><button class="btn sm wa" data-remind="${c.id}">Send reminder</button></div>`).join("")
+    || `<div class="empty">No late payments. 👏</div>`;
+  $("#dueSoon").innerHTML = soon.map(c => `<div class="row"><div class="av">${initials(c.name)}</div>
+      <div class="grow"><div class="nm">${esc(c.name)}</div><div class="meta">${esc(c.car)} · due ${c.due === 0 ? "today" : c.due === 1 ? "tomorrow" : fmt(dayOf(c.due))}</div></div>
+      <div class="amt">${K(nextAmt(c))}</div></div>`).join("") || `<div class="empty">Nothing due this week.</div>`;
 }
-function footer(d) {
-  return `<footer><b>This is a demo built for ${esc(d.business)}.</b><br>The listings and numbers are samples. Your real ${d.template === "carhire" ? "fleet" : d.template === "dealer" ? "stock" : d.template === "importer" ? "orders, customers" : "products and records"}, photos and prices go here.<br><br>
-    Every screen, field and report here is built around how ${esc(d.business)} works, and can be changed to fit your process.<br><br>
-    Like it? Reply to ${esc(d.builder || "Zain")}'s WhatsApp message and it can be live for ${esc(d.business)} in days.</footer>`;
+function reminderText(c) {
+  const late = c.due < 0;
+  return `Hi ${first(c.name)}, this is Mile Auto Solutions. Your instalment of ${K(nextAmt(c))} for the ${c.car} ${late ? "was due on" : "is due on"} ${fmt(dayOf(c.due))}.\n\nYou can pay by MTN MoMo, Airtel Money or bank transfer. Please send us the reference once paid.\n\nYour car is currently: ${STAGES[c.stage]}. Thank you!`;
 }
 
-function dealer(d, root) {
-  let filter = "All";
-  const types = ["All", ...new Set(CARS.map(c => c.type))];
-  const draw = () => {
-    root.querySelector("#cars").innerHTML = CARS.filter(c => filter === "All" || c.type === filter).map((c, i) => `
-      <article class="car">${carArt(c.hue, c.make + " " + c.model)}
-        <div class="b"><div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><span class="t">${esc(c.year + " " + c.make)}</span><span class="tag ${c.status}">${c.status}</span></div>
-        <div class="m">${esc(c.model)} · ${c.km.toLocaleString()} km · ${c.fuel}</div>
-        <div class="p">${K(c.price)}</div>
-        <button class="btn" data-car="${CARS.indexOf(c)}" ${c.status === "Sold" ? "disabled" : ""}>${c.status === "Sold" ? "Sold" : "View details"}</button></div></article>`).join("");
-    root.querySelectorAll(".chip").forEach(ch => ch.classList.toggle("on", ch.dataset.f === filter));
-  };
-  root.innerHTML = `<div class="d">${header(d)}<div class="wrap">
-    <section class="hero"><div class="rating">${stars(d.rating)}</div>
-      <h1>Quality cars ${esc(where(d.area))}, ready to drive away.</h1>
-      <p>${esc(d.tagline || `Browse ${d.business}'s latest stock with real prices. See something you like? Ask about it on WhatsApp in one tap.`)}</p>
-      <a class="btn acc" href="#stock">Browse cars</a></section>
-    <div id="stock"></div><h2>Cars in stock</h2><p class="lead">Updated automatically from the stock system: when a car is reserved or sold, it changes here too.</p>
-    <div class="chips">${types.map(t => `<button class="chip" data-f="${esc(t)}">${esc(t)}</button>`).join("")}</div>
-    <div class="grid" id="cars"></div>
-    <h2>Behind the scenes: your stock system</h2>
-    <p class="lead">What ${esc(d.business)}'s team would see: every car from purchase to sale, in one place.</p>
-    <div class="admin"><div class="k">
-      <div class="kk"><div class="l">Cars in stock</div><div class="v">14</div></div>
-      <div class="kk"><div class="l">Sold this month</div><div class="v">6</div></div>
-      <div class="kk"><div class="l">Profit this month</div><div class="v">${K(212000)}</div></div>
-      <div class="kk"><div class="l">WhatsApp enquiries</div><div class="v">41</div></div></div>
-      <div class="scroll"><table><tr><th>Car</th><th>Bought</th><th>Costs</th><th>Price</th><th>Profit</th><th>Status</th></tr>
-        ${CARS.slice(0, 5).map((c, i) => { const buy = Math.round(c.price * .74 / 1000) * 1000, cost = [9500, 12000, 7800, 5200, 14500][i];
-          return `<tr><td>${esc(c.year + " " + c.make + " " + c.model.split(" ")[0])}</td><td>${K(buy)}</td><td>${K(cost)}</td><td>${K(c.price)}</td><td style="color:#5fe3a1">${K(c.price - buy - cost)}</td><td>${c.status}</td></tr>`; }).join("")}
-      </table></div></div>
-    ${d.problem ? `<div class="note">Built with ${esc(d.business)} in mind: ${esc(d.problem)}</div>` : ""}
-    <div class="feat"><div><b>Stock that's always right</b>Mark a car reserved or sold once, and the website and your team see it instantly.</div>
-      <div><b>Cost and profit per car</b>Purchase price, duty, repairs and selling price, so you know what each car really made.</div>
-      <div><b>Enquiries in one list</b>Every buyer who asks about a car, with their number, so nobody is forgotten.</div></div>
-  </div>${footer(d)}</div>`;
-  draw();
-  root.addEventListener("click", e => {
-    const f = e.target.closest("[data-f]"); if (f) { filter = f.dataset.f; draw(); return; }
-    const b = e.target.closest("[data-car]"); if (b) { const c = CARS[+b.dataset.car]; const link = wa(d.wa, `Hi ${d.business}, is the ${c.year} ${c.make} ${c.model} (${K(c.price)}) still available?`);
-      const m = document.createElement("div"); m.className = "modal-bg"; m.innerHTML = `<div class="modal">${carArt(c.hue, c.model)}<div class="b">
-        <div style="display:flex;justify-content:space-between;align-items:center"><b style="font:800 20px Sora,sans-serif">${esc(c.year + " " + c.make + " " + c.model)}</b><span class="tag ${c.status}">${c.status}</span></div>
-        <div class="p" style="font:800 24px Sora,sans-serif">${K(c.price)}</div>
-        <div class="m" style="color:#4b5563">${c.km.toLocaleString()} km · ${c.fuel} · ${c.type} · Service history available · Registration help included</div>
-        ${link ? `<a class="btn pri" href="${esc(link)}" target="_blank" rel="noopener">Ask about this car on WhatsApp</a>` : ""}
-        <button class="btn" data-x>Close</button></div></div>`;
-      m.addEventListener("click", ev => { if (ev.target === m || ev.target.closest("[data-x]")) m.remove(); }); root.querySelector(".d").appendChild(m); }
-  });
+// 2 · payments
+function renderPayForm(keepId) {
+  const open = C.filter(c => bal(c) > 0);
+  const sel = $("#pCust"), cur = keepId || Number(sel.value) || open[0].id;
+  sel.innerHTML = open.map(c => `<option value="${c.id}" ${c.id === cur ? "selected" : ""}>${esc(c.name)} · ${esc(c.car)}</option>`).join("");
+  fillPay();
+}
+function fillPay() {
+  const c = C.find(x => x.id === Number($("#pCust").value)); if (!c) return;
+  $("#pInfo").innerHTML = `Paid <b>${K(paid(c))}</b> of ${K(c.price)} · balance <b>${K(bal(c))}</b> · next instalment <b>${K(nextAmt(c))}</b>${c.due !== null ? ` ${c.due < 0 ? `<span class="pill bad">late</span>` : `due ${fmt(dayOf(c.due))}`}` : ""}`;
+  $("#pAmt").value = nextAmt(c);
+}
+function savePay() {
+  const c = C.find(x => x.id === Number($("#pCust").value)), amt = Math.round(Number($("#pAmt").value));
+  if (!c || !amt || amt <= 0) return toast("Enter the amount received");
+  if (amt > bal(c)) return toast(`That's more than the balance (${K(bal(c))})`);
+  const method = $("#pMethod").value, ref = $("#pRef").value.trim();
+  c.pays.push([0, amt, method, bal(c) - amt === 0 ? "Final payment" : "Instalment"]);
+  if (bal(c) === 0) c.due = null; else if (amt >= c.inst || c.due < 0) c.due = Math.max(c.due, 0) + 30;
+  receiptNo++;
+  $("#receipt").innerHTML = `<div class="receipt">
+    <div class="rh"><div><b>Mile Auto Solutions</b><div class="meta">Cairo Road, Lusaka</div></div><div style="text-align:right"><b>Receipt MA-${receiptNo}</b><div class="meta">${fmt(today)} ${today.getFullYear()}</div></div></div>
+    <div class="line"><span>Received from</span><b>${esc(c.name)}</b></div>
+    <div class="line"><span>For</span><span>${esc(c.car)}</span></div>
+    <div class="line"><span>Amount</span><b>${K(amt)}</b></div>
+    <div class="line"><span>Paid by</span><span>${esc(method)}${ref ? " · " + esc(ref) : ""}</span></div>
+    <div class="line"><span>Total paid</span><span>${K(paid(c))} of ${K(c.price)}</span></div>
+    <div class="line"><span>Balance</span><b style="color:${bal(c) ? "var(--ink)" : "var(--good)"}">${bal(c) ? K(bal(c)) : "Fully paid ✓"}</b></div>
+    ${c.due !== null ? `<div class="line"><span>Next payment</span><span>${K(nextAmt(c))} on ${fmt(dayOf(c.due))}</span></div>` : ""}
+    <button class="btn sm wa" id="sendRcpt" style="margin-top:10px;width:100%">Send receipt to ${esc(first(c.name))} on WhatsApp</button></div>`;
+  $("#sendRcpt").onclick = e => { e.target.disabled = true; e.target.textContent = "Receipt sent ✓"; };
+  $("#pRef").value = "";
+  toast(`Saved. ${first(c.name)}'s balance is now ${bal(c) ? K(bal(c)) : "fully paid"}.`);
+  renderAll(c.id);
 }
 
-function carhire(d, root) {
-  const today = new Date().toISOString().slice(0, 10), later = new Date(Date.now() + 3 * 864e5).toISOString().slice(0, 10);
-  root.innerHTML = `<div class="d">${header(d)}<div class="wrap">
-    <section class="hero"><div class="rating">${stars(d.rating)}</div>
-      <h1>Hire a car ${esc(where(d.area))} in two minutes.</h1>
-      <p>${esc(d.tagline || `${d.business}: pick your dates, see the price, book on WhatsApp.`)}</p></section>
-    <div class="book"><div style="font:700 17px Sora,sans-serif">Get an instant quote</div>
-      <label>Vehicle<select id="veh">${FLEET.map((f, i) => `<option value="${i}">${esc(f.name)} · ${K(f.rate)}/day</option>`).join("")}</select></label>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><label>Pick-up<input id="d1" type="date" value="${today}"></label><label>Return<input id="d2" type="date" value="${later}"></label></div>
-      <div id="q" class="quote"></div><a class="btn pri" id="bk" target="_blank" rel="noopener">Book on WhatsApp</a></div>
-    <h2>Our fleet</h2><div class="grid">${FLEET.map(f => `<article class="car">${carArt(f.hue, f.name)}<div class="b"><span class="t">${esc(f.name)}</span>
-      <div class="m">${esc(f.cls)} · ${f.seats} seats</div><div class="p">${K(f.rate)}<span style="font:500 13px Inter;color:#8a94a3"> / day</span></div></div></article>`).join("")}</div>
-    <h2>Behind the scenes: your fleet system</h2><p class="lead">What ${esc(d.business)}'s office would see every morning.</p>
-    <div class="admin"><div class="k">
-      <div class="kk"><div class="l">On hire today</div><div class="v">9 / 14</div></div>
-      <div class="kk"><div class="l">Deposits held</div><div class="v">${K(38500)}</div></div>
-      <div class="kk"><div class="l">Service due this week</div><div class="v">2</div></div>
-      <div class="kk"><div class="l">Revenue this month</div><div class="v">${K(186400)}</div></div></div>
-      <div class="scroll"><table><tr><th>Vehicle</th><th>Status</th><th>Next service</th><th>This month</th></tr>
-        ${FLEET.map((f, i) => `<tr><td>${esc(f.name)}</td><td>${f.status}</td><td>${["3,200 km", "in 5 days", "1,100 km", "Overdue"][i]}</td><td>${K([14450, 36100, 41800, 9600][i])}</td></tr>`).join("")}</table></div></div>
-    ${d.problem ? `<div class="note">Built with ${esc(d.business)} in mind: ${esc(d.problem)}</div>` : ""}
-    <div class="feat"><div><b>Availability calendar</b>See which vehicle is free on which day, so you never double-book.</div>
-      <div><b>Deposits and damage records</b>Photos at pick-up and return, deposits held and refunded, all tracked.</div>
-      <div><b>Service reminders</b>Each vehicle's mileage and service dates, with alerts before they're due.</div></div>
-  </div>${footer(d)}</div>`;
-  const upd = () => { const f = FLEET[+root.querySelector("#veh").value]; const a = new Date(root.querySelector("#d1").value), b = new Date(root.querySelector("#d2").value);
-    const days = Math.max(1, Math.round((b - a) / 864e5) || 1); root.querySelector("#q").textContent = `${days} day${days > 1 ? "s" : ""} · ${K(days * f.rate)}`;
-    const l = wa(d.wa, `Hi ${d.business}, I'd like to book the ${f.name} from ${root.querySelector("#d1").value} to ${root.querySelector("#d2").value} (${days} days).`);
-    const bk = root.querySelector("#bk"); if (l) bk.href = l; else bk.remove(); };
-  ["#veh", "#d1", "#d2"].forEach(s => root.querySelector(s).addEventListener("change", upd)); upd();
+// 3 · cars
+function renderPipeline() {
+  $("#pipeline").innerHTML = STAGES.slice(0, 6).map((s, i) => {
+    const cars = C.filter(c => c.stage === i);
+    return `<div class="stage-h"><span class="dot" style="background:${i === 5 ? "var(--good)" : "var(--blue)"}"></span>${s}<span class="c">${cars.length} car${cars.length === 1 ? "" : "s"}</span></div>
+      ${cars.map(c => `<div class="carrow"><div class="grow"><div class="nm">${esc(c.car)}</div><div class="meta">${esc(c.name)} · ${bal(c) ? K(bal(c)) + " still to pay" : `<span style="color:var(--good);font-weight:600">fully paid</span>`}</div></div>
+        <button class="btn sm" data-move="${c.id}">${i === 5 ? "Hand over" : "Move on →"}</button></div>`).join("") || `<div class="empty" style="padding:2px 0 4px">No cars here right now.</div>`}`;
+  }).join("");
+}
+function moveCar(c) {
+  if (c.stage === 5 && bal(c) > 0) {
+    return modal(`<b style="font-size:17px">Balance not cleared</b><p class="meta" style="font-size:14px">${esc(c.name)} still owes <b>${K(bal(c))}</b>. The system warns you before a car is handed over unpaid.</p><button class="btn pri" data-close style="width:100%">OK</button>`);
+  }
+  c.stage++;
+  const msg = c.stage === 6 ? `Hi ${first(c.name)}, thank you for buying your ${c.car} with Mile Auto Solutions! Enjoy the drive. 🚗`
+    : c.stage === 5 ? `Hi ${first(c.name)}, great news! Your ${c.car} is ready for collection at Mile Auto Solutions, Cairo Road.${bal(c) ? ` Balance to clear before collection: ${K(bal(c))}.` : ""}`
+    : `Hi ${first(c.name)}, update from Mile Auto Solutions: your ${c.car} is now "${STAGES[c.stage]}". Track it any time on your link.`;
+  modal(`<b style="font-size:17px">${esc(c.car)} moved to "${STAGES[c.stage]}"</b>
+    <p class="meta" style="font-size:14px;margin:6px 0 0">This WhatsApp update goes to ${esc(c.name)} automatically:</p>
+    <div class="bubble">${esc(msg)}</div><button class="btn pri" data-close style="width:100%">Done</button>`);
+  renderAll();
 }
 
-const STAGES = ["Order confirmed", "Deposit paid", "Shipped from Japan", "Arrived at port", "On the road to Zambia", "Cleared in Lusaka", "Handed over"];
-const ORDERS = [
-  { no: "MA-1042", who: "Chanda M.", car: "2017 Toyota Vitz", total: 92000, paid: 55500, stage: 4, due: "5 Oct", inst: 18250, state: "On track", hue: 200 },
-  { no: "MA-1038", who: "Mwila K.", car: "2016 Toyota Premio", total: 128000, paid: 102000, stage: 5, due: "1 Oct", inst: 13000, state: "Due in 3 days", hue: 18 },
-  { no: "MA-1051", who: "Bwalya N.", car: "2018 Honda Fit Hybrid", total: 115000, paid: 34500, stage: 2, due: "24 Sep", inst: 20125, state: "Overdue", hue: 140 },
-  { no: "MA-1029", who: "Natasha P.", car: "2015 Toyota Hilux Surf", total: 210000, paid: 210000, stage: 6, due: "", inst: 0, state: "Paid in full", hue: 40 },
-  { no: "MA-1055", who: "Mutale S.", car: "2019 Nissan Note e-Power", total: 124000, paid: 37200, stage: 1, due: "12 Oct", inst: 21700, state: "On track", hue: 300 },
-];
-function importer(d, root) {
-  const stClass = s => s === "Overdue" ? "Sold" : s.startsWith("Due") ? "Reserved" : "Available";
-  root.innerHTML = `<div class="d">${header(d)}<div class="wrap">
-    <section class="hero"><div class="rating">${stars(d.rating)}</div>
-      <h1>Your car from Japan, on a payment plan, tracked all the way to Lusaka.</h1>
-      <p>${esc(d.tagline || `${d.business}, ${where(d.area)}: choose your car, pay in instalments, and check where it is any time, without having to call.`)}</p>
-      <a class="btn acc" href="#track">Track my car</a></section>
-
-    <div id="track"></div><div class="book"><div style="font:700 17px Sora,sans-serif">Track my car</div>
-      <label>Order number<input id="ono" placeholder="e.g. MA-1042" autocomplete="off"></label>
-      <div class="chips" style="margin:0">${ORDERS.slice(0, 3).map(o => `<button class="chip" data-o="${o.no}">Try ${o.no}</button>`).join("")}</div>
-      <div id="tout"></div></div>
-
-    <h2>Plan your payments</h2><p class="lead">See your instalments before you commit.</p>
-    <div class="book">
-      <label>Car price (landed in Lusaka)<input id="pp" type="number" inputmode="numeric" value="120000" min="10000" step="1000"></label>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-        <label>Deposit<select id="dep">${[30, 40, 50].map(p => `<option value="${p}" ${p === 40 ? "selected" : ""}>${p}%</option>`).join("")}</select></label>
-        <label>Pay over<select id="mo">${[3, 4, 6].map(m => `<option value="${m}" ${m === 4 ? "selected" : ""}>${m} months</option>`).join("")}</select></label></div>
-      <div id="plan" class="quote"></div><div class="m" id="plan2" style="color:#4b5563;font-size:13.5px"></div>
-      <a class="btn pri" id="start" target="_blank" rel="noopener">Start my order on WhatsApp</a></div>
-
-    <h2>Behind the scenes: your orders &amp; instalments system</h2>
-    <p class="lead">What ${esc(d.business)}'s office would see: every customer, every car, every kwacha owed.</p>
-    <div class="admin"><div class="k">
-      <div class="kk"><div class="l">Active orders</div><div class="v">23</div></div>
-      <div class="kk"><div class="l">Cars on the way</div><div class="v">9</div></div>
-      <div class="kk"><div class="l">Collected this month</div><div class="v">${K(386000)}</div></div>
-      <div class="kk"><div class="l">Overdue instalments</div><div class="v" style="color:#ff8a7a">4 · ${K(58500)}</div></div></div>
-      <div class="scroll"><table><tr><th>Customer</th><th>Car</th><th>Where it is</th><th>Paid</th><th>Balance</th><th>Next due</th><th>Status</th></tr>
-        ${ORDERS.map(o => `<tr data-o="${o.no}" style="cursor:pointer"><td>${esc(o.who)}</td><td>${esc(o.car)}</td><td>${STAGES[o.stage]}</td><td>${K(o.paid)}</td><td>${K(o.total - o.paid)}</td><td>${o.due ? o.due + " · " + K(o.inst) : "–"}</td>
-          <td><span class="tag ${stClass(o.state)}">${o.state}</span></td></tr>`).join("")}</table></div>
-      <div style="margin-top:14px;font-size:13px;color:#93a1b8">Automatic WhatsApp reminder, sent 3 days before each due date:</div>
-      <div style="background:#1f2c1f;color:#dff5df;border-radius:12px 12px 12px 4px;padding:10px 12px;margin-top:6px;font-size:13.5px;max-width:520px">
-        Hi Mwila, a friendly reminder from ${esc(d.business)}: your instalment of ${K(13000)} for the 2016 Toyota Premio is due on 1 Oct. Good news, your car has cleared customs in Lusaka. Balance after this payment: ${K(13000)}.</div></div>
-    <div class="feat"><div><b>Instalments that track themselves</b>Every payment recorded against the customer and the car, with balances always up to date.</div>
-      <div><b>Reminders sent for you</b>Customers get a polite WhatsApp reminder before each due date, so you chase fewer people.</div>
-      <div><b>"Where is my car?" answered</b>Update the shipping stage once, and the customer can check it themselves any time.</div></div>
-  </div>${footer(d)}</div>`;
-  const show = no => {
-    const o = ORDERS.find(x => x.no.toLowerCase() === String(no).trim().toLowerCase()), out = root.querySelector("#tout");
-    if (!o) { out.innerHTML = no ? `<div class="m" style="color:#c0392b">No order ${esc(no)} found. Check the number on your receipt.</div>` : ""; return; }
-    root.querySelector("#ono").value = o.no;
-    out.innerHTML = `<div style="display:flex;gap:12px;align-items:center;margin:4px 0 10px"><div style="width:84px;flex:none;border-radius:10px;overflow:hidden">${carArt(o.hue, o.car)}</div>
-        <div><b style="font:700 16px Sora,sans-serif">${esc(o.car)}</b><div class="m" style="color:#4b5563">${esc(o.who)} · ${o.no}</div></div></div>
-      <ol style="list-style:none;margin:0;padding:0;display:grid;gap:0">${STAGES.map((s, i) => `<li style="display:flex;gap:10px;align-items:flex-start;padding:4px 0">
-        <span style="width:18px;height:18px;border-radius:50%;flex:none;margin-top:2px;display:grid;place-items:center;font-size:11px;color:#fff;background:${i < o.stage ? "#12834a" : i === o.stage ? "#0f5bd8" : "#d6dbe1"}">${i < o.stage ? "✓" : ""}</span>
-        <span style="${i === o.stage ? "font-weight:700" : i > o.stage ? "color:#8a94a3" : ""}">${s}${i === o.stage ? " · now" : ""}</span></li>`).join("")}</ol>
-      <div style="background:#f6f7f9;border-radius:10px;padding:10px 12px;margin-top:10px;font-size:14px">Paid <b>${K(o.paid)}</b> of ${K(o.total)}${o.total > o.paid ? ` · next payment <b>${K(o.inst)}</b> on ${o.due}` : " · <b style='color:#12834a'>fully paid</b>"}</div>`;
-  };
-  const plan = () => {
-    const p = Math.max(0, Number(root.querySelector("#pp").value) || 0), dep = +root.querySelector("#dep").value, mo = +root.querySelector("#mo").value;
-    const depAmt = p * dep / 100, each = (p - depAmt) / mo;
-    root.querySelector("#plan").textContent = `${K(depAmt)} now, then ${K(each)} × ${mo}`;
-    root.querySelector("#plan2").textContent = `Deposit secures your car in Japan. Your car ships once the deposit clears, and you finish paying while it travels.`;
-    const l = wa(d.wa, `Hi ${d.business}, I'd like to order a car around ${K(p)} with ${dep}% deposit and ${mo} monthly payments.`);
-    const s = root.querySelector("#start"); if (l) s.href = l; else s.remove();
-  };
-  root.querySelector("#ono").addEventListener("input", e => show(e.target.value));
-  ["#pp", "#dep", "#mo"].forEach(s => root.querySelector(s).addEventListener("input", plan));
-  root.addEventListener("click", e => { const b = e.target.closest("[data-o]"); if (b) { show(b.dataset.o); root.querySelector("#track").scrollIntoView({ behavior: "smooth" }); } });
-  plan();
+// 4 · customer view
+function renderPhone() {
+  const sel = $("#vCust"), cur = Number(sel.value) || 1;
+  sel.innerHTML = C.map(c => `<option value="${c.id}" ${c.id === cur ? "selected" : ""}>${esc(c.name)}</option>`).join("");
+  const c = C.find(x => x.id === cur), pct = Math.round(100 * paid(c) / c.price);
+  $("#phone").innerHTML = `<div class="ph"><div class="logo">MA</div><div><b style="font-size:14px">Mile Auto Solutions</b><div style="font-size:11.5px;color:#aebbd2">Your car, step by step</div></div></div>
+    <div class="pb"><div style="font-size:13px;color:var(--ink2)">Hi ${esc(first(c.name))} 👋</div>
+      <div style="font-weight:800;font-size:18px;margin-top:2px">${esc(c.car)}</div>
+      <ul class="steps">${STAGES.map((s, i) => `<li class="${i < c.stage ? "done" : i === c.stage ? "now" : "todo"}"><span class="b">${i < c.stage ? "✓" : ""}</span><span>${s}${i === c.stage ? " · now" : ""}</span></li>`).join("")}</ul>
+      <div style="margin-top:12px;font-size:13px;color:var(--ink2)">Payments</div>
+      <div class="bar"><i style="width:${pct}%"></i></div>
+      <div style="display:flex;justify-content:space-between;font-size:13.5px"><span>Paid <b>${K(paid(c))}</b></span><span>${pct}%</span></div>
+      ${bal(c) ? `<div class="hint" style="margin:10px 0 0">Next payment: <b>${K(nextAmt(c))}</b> ${c.due !== null ? (c.due < 0 ? `<span class="pill bad">was due ${fmt(dayOf(c.due))}</span>` : `on ${fmt(dayOf(c.due))}`) : ""}<br>Pay by MTN MoMo, Airtel Money or bank transfer.</div>`
+               : `<div class="hint" style="margin:10px 0 0;background:var(--goodbg);color:var(--good)"><b>Fully paid. Thank you!</b></div>`}
+      <button class="btn wa" style="width:100%;margin-top:10px" data-fake>Questions? WhatsApp us</button></div>`;
 }
 
-function business(d, root) {
-  const k = KINDS[d.kind] || { headline: b => `${b}, now online.`, services: ["Friendly service", "Fair prices", "Located " + where(d.area)],
-    kpis: [["Sales today", "K 8,450"], ["Customers this month", "312"], ["Items running low", "5"], ["Owed by customers", "K 12,300"]],
-    feats: [["Sales and stock together", "Every sale updates your stock, with alerts before you run out."], ["Customer records", "Who bought what, who owes you, and who to follow up."], ["Reports on your phone", "Daily and monthly totals wherever you are."]] };
-  const chat = wa(d.wa, `Hi ${d.business}, I found you online.`);
-  root.innerHTML = `<div class="d">${header(d)}<div class="wrap">
-    <section class="hero"><div class="rating">${stars(d.rating)}</div>
-      <h1>${esc(d.headline || k.headline(d.business))}</h1>
-      <p>${esc(d.tagline || `Everything customers need to know about ${d.business}, ${where(d.area)}, and one tap to reach you on WhatsApp.`)}</p>
-      ${chat ? `<a class="btn pri" href="${esc(chat)}" target="_blank" rel="noopener">Chat on WhatsApp</a>` : ""}</section>
-    <h2>What we offer</h2><div class="feat">${(d.services || k.services).map(s => `<div><b>${esc(s)}</b>Ask us on WhatsApp for details and prices.</div>`).join("")}</div>
-    <h2>Behind the scenes: your management system</h2><p class="lead">What ${esc(d.business)} would see every day.</p>
-    <div class="admin"><div class="k">${k.kpis.map(([l, v]) => `<div class="kk"><div class="l">${esc(l)}</div><div class="v">${esc(v)}</div></div>`).join("")}</div></div>
-    <div class="feat">${k.feats.map(([t, x]) => `<div><b>${esc(t)}</b>${esc(x)}</div>`).join("")}</div>
-  </div>${footer(d)}</div>`;
-}
+function renderAll(keepPayId) { renderMoney(); renderPipeline(); renderPhone(); renderPayForm(keepPayId); }
 
-window.DemoPage = {
-  render(demo) {
-    const st = document.createElement("style"); st.textContent = CSS; document.head.appendChild(st);
-    const d = { ...(demo.data || {}), template: demo.template };
-    document.title = `${d.business || "Demo"} · Demo`;
-    const root = document.getElementById("root");
-    ({ dealer, carhire, importer }[demo.template] || business)(d, root);
-  },
-};
+document.addEventListener("click", e => {
+  const r = e.target.closest("[data-remind]");
+  if (r) { const c = C.find(x => x.id === Number(r.dataset.remind));
+    const m = modal(`<b style="font-size:17px">Reminder to ${esc(c.name)}</b><div class="bubble">${esc(reminderText(c))}</div>
+      <button class="btn wa" id="doSend" style="width:100%">Send on WhatsApp</button><button class="btn" data-close style="width:100%;margin-top:8px">Cancel</button>`);
+    m.querySelector("#doSend").onclick = () => { m.remove(); r.disabled = true; r.textContent = "Reminder sent ✓"; toast(`Reminder sent to ${first(c.name)}`); };
+    return; }
+  const mv = e.target.closest("[data-move]"); if (mv) return moveCar(C.find(x => x.id === Number(mv.dataset.move)));
+  if (e.target.closest("[data-fake]")) toast("This opens a WhatsApp chat with Mile Auto");
+});
+$("#pCust").addEventListener("change", fillPay);
+$("#pSave").addEventListener("click", savePay);
+$("#vCust").addEventListener("change", renderPhone);
+renderAll();
 })();
-
-window.DemoPage.render({"template": "importer", "data": {"business": "Mile Auto Solutions", "area": "Cairo Road", "rating": "5.0", "wa": "260770246900", "builder": "Zain"}});
 </script>
 </body>
 </html>
